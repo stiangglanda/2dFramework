@@ -4,9 +4,15 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <tmxlite/Tileset.hpp>
 
 typedef int gid;
 
+struct frame {
+    int x;
+    int y;
+    int duration;
+};
 // Stores information about an individual tile to be
 // displayed.
 struct tile {
@@ -22,8 +28,12 @@ struct tile {
     int width;
     int height;
 
-    tile(SDL_Texture* tset, int x = 0, int y = 0, 
-        int tx = 0, int ty = 0, int w = 0, int h = 0);
+    std::vector<frame> mAnimatedtiles;
+    bool mAnimated;
+    float duration = 0;
+
+    tile(std::vector<frame> animatedtiles, SDL_Texture* tset, int x = 0, int y = 0,
+        int tx = 0, int ty = 0, int w = 0, int h = 0, bool animated=false);
     void draw(SDL_Renderer* ren, SDL_Rect& camera);
     void drawNew(SDL_Renderer* ren, SDL_Rect& camera);
     void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);

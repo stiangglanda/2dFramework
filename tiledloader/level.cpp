@@ -7,8 +7,8 @@
 #include <algorithm>
 #include "Framework.h"
 
-tile::tile(SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h)
-: sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h) {
+tile::tile(std::vector<frame> animatedtiles, SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h, bool animated)
+: mAnimatedtiles(animatedtiles), sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h), mAnimated(animated) {
 
 }
 
@@ -45,7 +45,19 @@ void tile::drawNew(SDL_Renderer* ren, SDL_Rect& camera) {
     if (!ren || !sheet)
         return;
 
+    if (mAnimated)
+    {
+        if (duration >= mAnimatedtiles.size())//TODO >=
+        {
+            duration = 0;
+        }
+        frame fr = mAnimatedtiles[duration];
+        tx = fr.x;
+        ty = fr.y;
 
+        duration += 5 * Timer::Get()->GetElapsed();
+        //duration += fr.duration * Timer::Get()->GetElapsed();
+    }
 
     SDL_Rect src;
     src.x = tx;
@@ -101,10 +113,27 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
     tile_width = tilesize.x;
     tile_height = tilesize.y;
 
+    std::map<int, std::vector<frame>> animations;
     // Load all of the tilesets and store them in a data structure.
     // I chose to store them in a map.
     auto& map_tilesets = tiled_map.getTilesets();
     for (auto& tset : map_tilesets) {
+        for (auto itile : tset.getTiles())
+        {
+            if (itile.animation.frames.size() > 1)
+            {
+                std::vector<frame> frames;
+                for (size_t i = 0; i < itile.animation.frames.size(); i++)
+                {
+                    frame fr;
+                    fr.duration = itile.animation.frames[i].duration;
+                    fr.x = tset.getTile(itile.animation.frames[i].tileID)->imagePosition.x;
+                    fr.y = tset.getTile(itile.animation.frames[i].tileID)->imagePosition.y;
+                    frames.push_back(fr);
+                }
+                animations.insert(std::pair<int, std::vector<frame>>(itile.ID, frames));
+            }
+        }
         auto tex = assets::instance()
             .load_texture(tset.getImagePath(), ren);
         tilesets.insert(std::pair<gid, SDL_Texture*>(tset.getFirstGID(), tex));
@@ -183,6 +212,15 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
                 auto region_x = (cur_gid % (ts_width / tile_width)) * tile_width;
                 auto region_y = (cur_gid / (ts_width / tile_width)) * tile_height;
 
+                std::vector<frame> animatedtiles;
+                auto anim = animations.find(cur_gid);
+                bool animated = false;
+                if (anim != animations.end())
+                {
+                    animated = true;
+                    animatedtiles = anim->second;
+                }
+
                 // Calculate the world position of our tile. This is easy,
                 // because we're using nested for-loop to visit each x,y
                 // coordinate.
@@ -190,8 +228,8 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
                 auto y_pos = y * tile_height;
 
                 // Phew, all done. 
-                tile t(tilesets[tset_gid], x_pos, y_pos, 
-                    region_x, region_y, tile_width, tile_height);
+                tile t(animatedtiles,tilesets[tset_gid], x_pos, y_pos,
+                    region_x, region_y, tile_width, tile_height, animated);
                 tilesforDimention.push_back(t);
                 
                 //pusch to dimension
