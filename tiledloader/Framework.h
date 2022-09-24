@@ -3,6 +3,7 @@
 #include <iostream>
 #include "TSingleton.h"
 #include "Timer.h"
+#include <vector>
 
 using namespace std;
 
@@ -22,6 +23,8 @@ public:
 	SDL_Renderer* GetRenderer() { return m_pRenderer; }
 	int GetScreenWidth() { return mWidth; }
 	int GetScreenHeight() { return mHight; }
+	bool touchesWall(SDL_Rect box, const std::vector<SDL_Rect>* collisionLayer);
+	void RenderRect(SDL_Rect outlineRect, SDL_Rect camera);
 
 private:
 	const Uint8* m_pKeystate;

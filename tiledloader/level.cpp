@@ -149,9 +149,9 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
     for (auto& layer : map_layers) {
         // We're only looking to render the tiles on the map, so if
         // this layer isn't a tile layer, we'll move on.
-        if (layer->getType() != tmx::Layer::Type::Tile) {
-            continue;
-        }
+        if (layer->getType() == tmx::Layer::Type::Tile) 
+        {
+        
 
         std::vector<tile> tilesforDimention;
 
@@ -228,14 +228,30 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
                 auto y_pos = y * tile_height;
 
                 // Phew, all done. 
-                tile t(animatedtiles,tilesets[tset_gid], x_pos, y_pos,
+                tile t(animatedtiles, tilesets[tset_gid], x_pos, y_pos,
                     region_x, region_y, tile_width, tile_height, animated);
                 tilesforDimention.push_back(t);
-                
+
+            
                 //pusch to dimension
             }
         }
         tilesbyLayer.push_back(tilesforDimention);
+        }
+        else if (layer->getType() == tmx::Layer::Type::Object)
+        {
+            auto* tile_layer = dynamic_cast<const tmx::ObjectGroup*>(layer.get());
+            for (auto object : tile_layer->getObjects())
+            {
+                SDL_Rect rect;
+                rect.x = object.getAABB().left;
+                rect.y = object.getAABB().top;
+                rect.w = object.getAABB().width;
+                rect.h = object.getAABB().height;
+
+                collisionLayer.push_back(rect);
+            }
+        }
     }
 }
 
@@ -253,6 +269,24 @@ void level::drawLayer(SDL_Renderer* ren, SDL_Rect& camera, int layer) {
     }
 }
 
+void level::drawLayerTillYvalue(SDL_Renderer* ren, SDL_Rect& camera, int layer, int y) {
+    for (auto& tile : tilesbyLayer[layer]) {
+        if (tile.y < y)
+        {
+            tile.drawNew(ren, camera);
+        }
+    }
+}
+
+void level::drawLayerAfterYvalue(SDL_Renderer* ren, SDL_Rect& camera, int layer, int y) {
+    for (auto& tile : tilesbyLayer[layer]) {
+        if (tile.y >= y)
+        {
+            tile.drawNew(ren, camera);
+        }
+    }
+}
+
 float level::GetLevelWidth()
 {
     return tile_width * cols;
@@ -263,3 +297,12 @@ float level::GetLevelHight()
     return tile_height * rows;
 }
 
+std::vector<tile>* level::GetTilesByLayer(int layer)
+{
+    return &tilesbyLayer[layer];
+}
+
+std::vector<SDL_Rect>* level::GetCollisionLayer()
+{
+    return &collisionLayer;
+}

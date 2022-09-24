@@ -1,4 +1,5 @@
 #include "game.h"
+#include <algorithm>
 
 game::game()
 {
@@ -22,19 +23,35 @@ void game::Quit()
 
 void game::Run()
 {
+
+
 	while (m_bGameRun == true)
 	{
+		SDL_Rect rect;
+		rect.x = 500;
+		rect.y = 500;
+		rect.w = 50;
+		rect.h = 50;
+		std::vector<SDL_Rect> collis;
+		collis.push_back(rect);
 		ProcessEvents();
-		player.get()->Update();
+		//player.get()->Update(&collis);//might need camera for collision
+		player.get()->Update(tiled_map_level.get()->GetCollisionLayer());//might need camera for collision
 		player.get()->setCamera(camera, tiled_map_level->GetLevelWidth(), tiled_map_level->GetLevelHight());
+		//std::sort(tiled_map_level.get()->GetTilesByLayer(1)->begin(), tiled_map_level.get()->GetTilesByLayer(1)->begin());
 		g_pFramework->Update();
 		g_pFramework->Clear();
 
 		tiled_map_level.get()->drawLayer(g_pFramework->GetRenderer(), camera,0);
 		tiled_map_level.get()->drawLayer(g_pFramework->GetRenderer(), camera,1);
 		player.get()->Draw(camera);
-
 		tiled_map_level.get()->drawLayer(g_pFramework->GetRenderer(), camera, 2);
+
+		
+		for (int i =0;i< tiled_map_level.get()->GetCollisionLayer()->size();i++)
+		{
+			g_pFramework->RenderRect(tiled_map_level.get()->GetCollisionLayer()->at(i), camera);
+		}
 		CheckCollisions();
 
 		g_pFramework->Render();

@@ -136,12 +136,12 @@ void LTexture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 	SDL_RenderCopyEx(g_pFramework->GetRenderer(), mTexture, clip, &renderQuad, angle, center, flip);
 }
 
-int LTexture::getWidth()
+const int LTexture::getWidth()
 {
 	return mWidth;
 }
 
-int LTexture::getHeight()
+const int LTexture::getHeight()
 {
 	return mHeight;
 }

@@ -46,3 +46,8 @@ void animatedSprite::render(int x, int y)
 
 	mFrame += mDuration * Timer::Get()->GetElapsed();
 }
+
+LTexture animatedSprite::GetTexture()
+{
+	return mTexture;
+}

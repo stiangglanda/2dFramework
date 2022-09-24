@@ -19,7 +19,10 @@ class Player
 public:
 	void Init();
 	void Draw(SDL_Rect& camera);
-	void Update();
+	void Update(const std::vector<SDL_Rect>* collisionLayer);
+	int GetX();
+	int GetY();
+	SDL_Rect GetAABB();
 	void Quit();
 	void setCamera(SDL_Rect& camera, float levelWidth, float levelHight);
 private:

@@ -32,6 +32,11 @@ struct tile {
     bool mAnimated;
     float duration = 0;
 
+    bool operator<(tile const& a)
+    {
+        return y < a.y;
+    }
+
     tile(std::vector<frame> animatedtiles, SDL_Texture* tset, int x = 0, int y = 0,
         int tx = 0, int ty = 0, int w = 0, int h = 0, bool animated=false);
     void draw(SDL_Renderer* ren, SDL_Rect& camera);
@@ -45,8 +50,12 @@ public:
     void load(const std::string& path, SDL_Renderer* ren);
     void draw(SDL_Renderer* ren, SDL_Rect& camera);
     void drawLayer(SDL_Renderer* ren, SDL_Rect& camera , int layer);
+    void drawLayerTillYvalue(SDL_Renderer* ren, SDL_Rect& camera , int layer, int y);
+    void drawLayerAfterYvalue(SDL_Renderer* ren, SDL_Rect& camera , int layer, int y);
     float GetLevelWidth();
     float GetLevelHight();
+    std::vector<tile>* GetTilesByLayer(int layer);
+    std::vector<SDL_Rect>* GetCollisionLayer();
 private:
     std::string name;
     // Think of the dimensions as a 2D array (after all, that's what our
@@ -62,5 +71,6 @@ private:
     std::vector<std::vector<tile>> tilesbyLayer;
     // All of the tilesets used by our Tiled map.
     std::map<gid, SDL_Texture*> tilesets;
+    std::vector<SDL_Rect> collisionLayer;
 };
 

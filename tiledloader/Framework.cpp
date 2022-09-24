@@ -82,30 +82,8 @@ void Framework::Quit()
 		SDL_DestroyWindow(m_pWindow);
 	}
 
+	IMG_Quit();
 	SDL_Quit();
-}
-
-void Framework::Update()
-{
-	Timer::Get()->Update();//TODO maybe!!!!!!!!!!!!!! //g_pTimer->Update();
-
-	SDL_PumpEvents();
-}
-
-bool Framework::KeyDown(int Key_ID)
-{
-	return (m_pKeystate[Key_ID] ? true : false);
-}
-
-void Framework::Clear()
-{
-	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-	SDL_RenderClear(m_pRenderer);
-}
-
-void Framework::Render()
-{
-	SDL_RenderPresent(m_pRenderer);
 }
 
 bool Framework::checkCollision(SDL_Rect a, SDL_Rect b)
@@ -151,4 +129,52 @@ bool Framework::checkCollision(SDL_Rect a, SDL_Rect b)
 
 	//If none of the sides from A are outside B
 	return true;
+}
+
+void Framework::RenderRect(SDL_Rect outlineRect, SDL_Rect camera)
+{
+	//Render green outlined quad
+	outlineRect.x -= camera.x;
+	outlineRect.y -= camera.y;
+	SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_RenderDrawRect(m_pRenderer, &outlineRect);
+}
+
+bool Framework::touchesWall(SDL_Rect box, const std::vector<SDL_Rect>* collisionLayer)
+{
+	//Go through the tiles
+	for (int i = 0; i < collisionLayer->size(); ++i)
+	{
+			//If the collision box touches the wall tile
+		if (checkCollision(box, collisionLayer->at(i)))
+		{
+			return true;
+		}
+	}
+
+	//If no wall tiles were touched
+	return false;
+}
+
+void Framework::Update()
+{
+	Timer::Get()->Update();//TODO maybe!!!!!!!!!!!!!! //g_pTimer->Update();
+
+	SDL_PumpEvents();
+}
+
+bool Framework::KeyDown(int Key_ID)
+{
+	return (m_pKeystate[Key_ID] ? true : false);
+}
+
+void Framework::Clear()
+{
+	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+	SDL_RenderClear(m_pRenderer);
+}
+
+void Framework::Render()
+{
+	SDL_RenderPresent(m_pRenderer);
 }
