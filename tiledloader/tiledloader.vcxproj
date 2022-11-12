@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="animatedSprite.cpp" />
     <ClCompile Include="assets.cpp" />
+    <ClCompile Include="BaseWidget.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="level.cpp" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="animatedSprite.h" />
     <ClInclude Include="assets.hpp" />
+    <ClInclude Include="BaseWidget.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="LTexture.h" />

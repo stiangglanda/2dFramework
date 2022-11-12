@@ -3,43 +3,43 @@
 void Player::Init()
 {
 	playerSpriteMoveForward = std::make_unique<animatedSprite>();
-	//playerSpriteMoveForward->Init("harrypotter/link_sprite_sheetMoveForward.png",15,9);
-	playerSpriteMoveForward->Init("link_sprite_sheetMoveForward.png",15,10);
+	playerSpriteMoveForward->Init("harrypotter/link_sprite_sheetMoveForward.png",15,9);
+	//playerSpriteMoveForward->Init("link_sprite_sheetMoveForward.png",15,10);
 
 	playerSpriteMoveRight = std::make_unique<animatedSprite>();
-	//playerSpriteMoveRight->Init("harrypotter/link_sprite_sheetMoveRight.png", 15, 9);
-	playerSpriteMoveRight->Init("link_sprite_sheetMoveRight.png", 15, 10);
+	playerSpriteMoveRight->Init("harrypotter/link_sprite_sheetMoveRight.png", 15, 9);
+	//playerSpriteMoveRight->Init("link_sprite_sheetMoveRight.png", 15, 10);
 
 	playerSpriteMoveBack = std::make_unique<animatedSprite>();
-	//playerSpriteMoveBack->Init("harrypotter/link_sprite_sheetMoveBack.png", 15, 9);
-	playerSpriteMoveBack->Init("link_sprite_sheetMoveBack.png", 15, 10);
+	playerSpriteMoveBack->Init("harrypotter/link_sprite_sheetMoveBack.png", 15, 9);
+	//playerSpriteMoveBack->Init("link_sprite_sheetMoveBack.png", 15, 10);
 
 	playerSpriteMoveLeft = std::make_unique<animatedSprite>();
-	//playerSpriteMoveLeft->Init("harrypotter/link_sprite_sheetMoveLeft.png", 15, 9);
-	playerSpriteMoveLeft->Init("link_sprite_sheetMoveLeft.png", 15, 10);
+	playerSpriteMoveLeft->Init("harrypotter/link_sprite_sheetMoveLeft.png", 15, 9);
+	//playerSpriteMoveLeft->Init("link_sprite_sheetMoveLeft.png", 15, 10);
 
 	playerSpriteIdleForward = std::make_unique<animatedSprite>();
-	//playerSpriteIdleForward->Init("harrypotter/link_sprite_sheetIdleForward.png", 1, 1);
-	playerSpriteIdleForward->Init("link_sprite_sheetIdleForward.png", 1, 1);
+	playerSpriteIdleForward->Init("harrypotter/link_sprite_sheetIdleForward.png", 1, 1);
+	//playerSpriteIdleForward->Init("link_sprite_sheetIdleForward.png", 1, 1);
 
 	playerSpriteIdleRight = std::make_unique<animatedSprite>();
-	//playerSpriteIdleRight->Init("harrypotter/link_sprite_sheetIdleRight.png", 1, 1);
-	playerSpriteIdleRight->Init("link_sprite_sheetIdleRight.png", 4, 3);
+	playerSpriteIdleRight->Init("harrypotter/link_sprite_sheetIdleRight.png", 1, 1);
+	//playerSpriteIdleRight->Init("link_sprite_sheetIdleRight.png", 4, 3);
 
 	playerSpriteIdleBack = std::make_unique<animatedSprite>();
-	//playerSpriteIdleBack->Init("harrypotter/link_sprite_sheetIdleBack.png", 1, 1);
-	playerSpriteIdleBack->Init("link_sprite_sheetIdleBack.png", 4, 3);
+	playerSpriteIdleBack->Init("harrypotter/link_sprite_sheetIdleBack.png", 1, 1);
+	//playerSpriteIdleBack->Init("link_sprite_sheetIdleBack.png", 4, 3);
 
 	playerSpriteIdleLeft = std::make_unique<animatedSprite>();
-	//playerSpriteIdleLeft->Init("harrypotter/link_sprite_sheetIdleLeft.png", 1, 1);
-	playerSpriteIdleLeft->Init("link_sprite_sheetIdleLeft.png", 4, 3);
+	playerSpriteIdleLeft->Init("harrypotter/link_sprite_sheetIdleLeft.png", 1, 1);
+	//playerSpriteIdleLeft->Init("link_sprite_sheetIdleLeft.png", 4, 3);
 
 	mBox.x = 0;
 	mBox.y = 0;
-	mBox.w = 100;
-	mBox.h = 100;
-	//mBox.w = 23;
-	//mBox.h = 44;
+	//mBox.w = 100;
+	//mBox.h = 100;
+	mBox.w = 23;
+	mBox.h = 44;
 	mVelX = 0;
 	mVelY = 0;
 }

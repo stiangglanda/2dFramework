@@ -60,6 +60,19 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFu
 		{
 			printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 		}
+
+		//Initialize SDL_ttf
+		if (TTF_Init() == -1)
+		{
+			printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+		}
+	}
+
+	//Open the font
+	gFont = TTF_OpenFont("ariblk.ttf", 28);
+	if (gFont == nullptr)
+	{
+		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
 	mWidth = ScreenWidth;
@@ -72,6 +85,10 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFu
 
 void Framework::Quit()
 {
+	//Free global font
+	TTF_CloseFont(gFont);
+	gFont = nullptr;
+
 	if (m_pRenderer != NULL)
 	{
 		SDL_DestroyRenderer(m_pRenderer);
@@ -81,7 +98,8 @@ void Framework::Quit()
 	{
 		SDL_DestroyWindow(m_pWindow);
 	}
-
+	//Quit SDL subsystems
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
-#include "Framework.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_render.h>
+
 
 class LTexture
 {
@@ -14,10 +16,8 @@ public:
 	//Loads image at specified path
 	bool loadFromFile(std::string path);
 
-#if defined(SDL_TTF_MAJOR_VERSION)
 	//Creates image from font string
 	bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
-#endif
 
 	//Deallocates texture
 	void free();

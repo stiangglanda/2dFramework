@@ -1,5 +1,7 @@
 #include "LTexture.h"
+#include "Framework.h"
 #include <SDL2/SDL_image.h>
+#include "Framework.h"
 
 LTexture::~LTexture()
 {
@@ -53,18 +55,17 @@ bool LTexture::loadFromFile(std::string path)
 	return mTexture != NULL;
 }
 
-#if defined(SDL_TTF_MAJOR_VERSION)
 bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
 {
 	//Get rid of preexisting texture
 	free();
 
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(g_pFramework->GetFont(), textureText.c_str(), textColor);
 	if (textSurface != NULL)
 	{
 		//Create texture from surface pixels
-		mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
+		mTexture = SDL_CreateTextureFromSurface(g_pFramework->GetRenderer(), textSurface);
 		if (mTexture == NULL)
 		{
 			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
@@ -88,7 +89,6 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 	//Return success
 	return mTexture != NULL;
 }
-#endif
 
 void LTexture::free()
 {

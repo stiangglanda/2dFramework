@@ -1,6 +1,7 @@
 #include "Framework.h"
 #include "level.hpp"
 #include "Player.h"
+#include "BaseWidget.h"
 
 class game {
 public:
@@ -16,6 +17,7 @@ private:
 	bool m_bGameRun;
 	std::unique_ptr<level> tiled_map_level;
 	std::unique_ptr<Player> player;
+	LTexture Widget;
 	SDL_Rect camera = { 0, 0, g_pFramework->GetScreenWidth(), g_pFramework->GetScreenHeight()};
 };
 

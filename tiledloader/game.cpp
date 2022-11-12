@@ -11,12 +11,20 @@ void game::Init()
 {
 	tiled_map_level.get()->load("island.tmx", g_pFramework->GetRenderer());
 	player.get()->Init();
+
+	SDL_Color textColor = { 0, 0, 0 };
+	if (!Widget.loadFromRenderedText("The quick brown fox jumps over the lazy dog", textColor))
+	{
+		printf("Failed to render text texture!\n");
+	}
 	m_bGameRun = true;
 }
 
 void game::Quit()
 {
-
+	tiled_map_level.release();
+	Widget.free();
+	player.release();
 }
 
 
@@ -53,6 +61,9 @@ void game::Run()
 			g_pFramework->RenderRect(tiled_map_level.get()->GetCollisionLayer()->at(i), camera);
 		}
 		CheckCollisions();
+
+		//draw UI
+		Widget.render((g_pFramework->GetScreenWidth() - Widget.getWidth()) / 2, (g_pFramework->GetScreenHeight() - Widget.getHeight()) / 2);
 
 		g_pFramework->Render();
 	}
