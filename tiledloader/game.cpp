@@ -1,10 +1,20 @@
-#include "game.h"
+﻿#include "game.h"
 #include <algorithm>
+
+struct ApplicationData {
+	bool show_text = true;
+	Rml::String animal = "dog";
+} my_data;
 
 game::game()
 {
 	tiled_map_level = std::make_unique<level>("name");
 	player = std::make_unique<Player>();
+
+	render_interface = std::make_unique<RenderInterface_SDL>(g_pFramework->GetRenderer());
+	system_interface = std::make_unique<SystemInterface_SDL>();
+
+
 }
 
 void game::Init()
@@ -18,6 +28,30 @@ void game::Init()
 		printf("Failed to render text texture!\n");
 	}
 	m_bGameRun = true;
+
+	Rml::SetRenderInterface(render_interface.get());
+	Rml::SetSystemInterface(system_interface.get());
+
+	Rml::Initialise();
+
+	context = Rml::CreateContext("main", Rml::Vector2i(g_pFramework->GetScreenWidth(), g_pFramework->GetScreenHeight()));
+
+	Rml::LoadFontFace("LatoLatin-Regular.ttf");
+	Rml::LoadFontFace("NotoEmoji-Regular.ttf", true);
+
+	if (Rml::DataModelConstructor constructor = context->CreateDataModel("animals"))
+	{
+		constructor.Bind("show_text", &my_data.show_text);
+		constructor.Bind("animal", &my_data.animal);
+	}
+
+	Rml::ElementDocument* document = context->LoadDocument("hello_world.rml");
+	document->Show();
+
+	Rml::Element* element = document->GetElementById("world");
+	//element->SetInnerRML(reinterpret_cast<const char*>(u8"🌍"));
+	element->SetProperty("font-size", "1.5em");
+
 }
 
 void game::Quit()
@@ -25,6 +59,7 @@ void game::Quit()
 	tiled_map_level.release();
 	Widget.free();
 	player.release();
+	Rml::Shutdown();
 }
 
 
@@ -64,6 +99,12 @@ void game::Run()
 
 		//draw UI
 		Widget.render((g_pFramework->GetScreenWidth() - Widget.getWidth()) / 2, (g_pFramework->GetScreenHeight() - Widget.getHeight()) / 2);
+
+		context->Update();
+
+		// Render the user interface. All geometry and other rendering commands are now
+		// submitted through the render interface.
+		context->Render();
 
 		g_pFramework->Render();
 	}

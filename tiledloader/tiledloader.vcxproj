@@ -28,7 +28,9 @@
     <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RenderInterface_SDL.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SystemInterface_SDL.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +41,8 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RenderInterface_SDL.h" />
+    <ClInclude Include="SystemInterface_SDL.h" />
     <ClInclude Include="TSingleton.h" />
     <ClInclude Include="level.hpp" />
     <ClInclude Include="Sprite.h" />
