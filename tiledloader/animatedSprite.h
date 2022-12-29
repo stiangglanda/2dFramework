@@ -9,7 +9,8 @@ public:
 	~animatedSprite();
 	bool Init(std::string path, float duration, int animationFrames);
 	void render(int x, int y);
-	LTexture GetTexture();
+	void renderSpecificFrame(int x, int y, int frame);
+	LTexture* GetTexture();
 private:
 	LTexture mTexture;
 	int mAnimationFrames;

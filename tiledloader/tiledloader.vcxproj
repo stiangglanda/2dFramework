@@ -22,12 +22,17 @@
     <ClCompile Include="animatedSprite.cpp" />
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="BaseWidget.cpp" />
+    <ClCompile Include="ButtonWidget.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GUISystem.cpp" />
+    <ClCompile Include="ImageWidget.cpp" />
+    <ClCompile Include="LabelWidget.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ProgressWidget.cpp" />
     <ClCompile Include="RenderInterface_SDL.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SystemInterface_SDL.cpp" />
@@ -37,10 +42,15 @@
     <ClInclude Include="animatedSprite.h" />
     <ClInclude Include="assets.hpp" />
     <ClInclude Include="BaseWidget.h" />
+    <ClInclude Include="ButtonWidget.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="GUISystem.h" />
+    <ClInclude Include="ImageWidget.h" />
+    <ClInclude Include="LabelWidget.h" />
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ProgressWidget.h" />
     <ClInclude Include="RenderInterface_SDL.h" />
     <ClInclude Include="SystemInterface_SDL.h" />
     <ClInclude Include="TSingleton.h" />
@@ -128,7 +138,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sdl2.lib;sdl2main.lib;tmxlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sdl2.lib;sdl2main.lib;SDL2_image.lib;SDL2_ttf.lib;tmxlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

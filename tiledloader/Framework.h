@@ -22,6 +22,7 @@ public:
 	bool KeyDown(int Key_ID);
 	bool checkCollision(SDL_Rect a, SDL_Rect b);
 	SDL_Renderer* GetRenderer() { return m_pRenderer; }
+	SDL_Window* GetWindow() { return m_pWindow; }
 	TTF_Font* GetFont() { return gFont; }
 	int GetScreenWidth() { return mWidth; }
 	int GetScreenHeight() { return mHight; }

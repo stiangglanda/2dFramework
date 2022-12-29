@@ -47,7 +47,12 @@ void animatedSprite::render(int x, int y)
 	mFrame += mDuration * Timer::Get()->GetElapsed();
 }
 
-LTexture animatedSprite::GetTexture()
+void animatedSprite::renderSpecificFrame(int x, int y, int frame)
 {
-	return mTexture;
+	mTexture.render(x, y, &mSpriteClips[frame]);
+}
+
+LTexture* animatedSprite::GetTexture()
+{
+	return &mTexture;
 }

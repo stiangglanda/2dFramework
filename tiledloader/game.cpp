@@ -17,12 +17,45 @@ game::game()
 
 }
 
+static void buttonOnClick()
+{
+	std::cout << "onClick";
+}
+
 void game::Init()
 {
 	tiled_map_level.get()->load("island.tmx", g_pFramework->GetRenderer());
 	player.get()->Init();
 
-	SDL_Color textColor = { 0, 0, 0 };
+	Image.loadFromFile("button.png");
+
+
+	SDL_Rect rect;
+	rect.x = 0;
+	rect.y= 0;
+	rect.w = 120;
+	rect.h = 80;
+
+	SDL_Color textColor = { 255, 0, 0 };
+
+	//animatedSprite* ButtonImage=new animatedSprite();
+	//ButtonImage->Init("button.png", 15, 3);
+
+	gui.CreateLabel("someName",rect,"Fox", textColor);
+
+	rect.x = 120;
+	rect.y = 70;
+	gui.CreateButton("someName2",rect,"Fox2", textColor, buttonOnClick);
+
+	rect.x = 320;
+	rect.y = 40;
+	gui.CreateProgress("someName2",rect, textColor, 0.5f);
+
+
+	rect.x = 320;
+	rect.y = 200;
+	gui.CreateImage("someName2",rect, &Image);
+
 	if (!Widget.loadFromRenderedText("The quick brown fox jumps over the lazy dog", textColor))
 	{
 		printf("Failed to render text texture!\n");
@@ -36,8 +69,8 @@ void game::Init()
 
 	context = Rml::CreateContext("main", Rml::Vector2i(g_pFramework->GetScreenWidth(), g_pFramework->GetScreenHeight()));
 
-	Rml::LoadFontFace("LatoLatin-Regular.ttf");
-	Rml::LoadFontFace("NotoEmoji-Regular.ttf", true);
+	Rml::LoadFontFace("arial.ttf");
+	//Rml::LoadFontFace("NotoEmoji-Regular.ttf", true);
 
 	if (Rml::DataModelConstructor constructor = context->CreateDataModel("animals"))
 	{
@@ -98,13 +131,13 @@ void game::Run()
 		CheckCollisions();
 
 		//draw UI
-		Widget.render((g_pFramework->GetScreenWidth() - Widget.getWidth()) / 2, (g_pFramework->GetScreenHeight() - Widget.getHeight()) / 2);
-
-		context->Update();
+		//Widget.render((g_pFramework->GetScreenWidth() - Widget.getWidth()) / 2, (g_pFramework->GetScreenHeight() - Widget.getHeight()) / 2);
+		gui.Render();
+		//context->Update();
 
 		// Render the user interface. All geometry and other rendering commands are now
 		// submitted through the render interface.
-		context->Render();
+		//context->Render();
 
 		g_pFramework->Render();
 	}
@@ -125,6 +158,7 @@ void game::ProcessEvents()
 		}
 		case (SDL_KEYDOWN):
 		{
+
 			switch (Event.key.keysym.sym)
 			{
 			case (SDLK_ESCAPE):
@@ -136,6 +170,15 @@ void game::ProcessEvents()
 			break;
 		}
 		}
+
+		gui.Update(0);
+		gui.handleEvent(&Event);
+		/*if(Event.type == SDL_MOUSEMOTION)
+		{
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			context->ProcessMouseMove(x, y, 0);
+		}*/
 	}
 }
 

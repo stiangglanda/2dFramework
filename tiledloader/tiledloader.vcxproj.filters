@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{a67cbb9c-4a4a-45af-ab2a-277892530d38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assets.cpp">
@@ -45,14 +48,29 @@
     <ClCompile Include="animatedSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaseWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SystemInterface_SDL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderInterface_SDL.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseWidget.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelWidget.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUISystem.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonWidget.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressWidget.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageWidget.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,14 +104,29 @@
     <ClInclude Include="animatedSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BaseWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SystemInterface_SDL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderInterface_SDL.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseWidget.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="LabelWidget.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISystem.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonWidget.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressWidget.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageWidget.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
