@@ -30,6 +30,7 @@ struct tile {
 
     std::vector<frame> mAnimatedtiles;
     bool mAnimated;
+    bool mObstacle;
     float duration = 0;
 
     bool operator<(tile const& a)
@@ -38,7 +39,7 @@ struct tile {
     }
 
     tile(std::vector<frame> animatedtiles, SDL_Texture* tset, int x = 0, int y = 0,
-        int tx = 0, int ty = 0, int w = 0, int h = 0, bool animated=false);
+        int tx = 0, int ty = 0, int w = 0, int h = 0, bool animated=false, bool Obstacle=false);
     void draw(SDL_Renderer* ren, SDL_Rect& camera);
     void drawNew(SDL_Renderer* ren, SDL_Rect& camera);
     void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
@@ -53,8 +54,11 @@ public:
     void drawLayerTillYvalue(SDL_Renderer* ren, SDL_Rect& camera , int layer, int y);
     void drawLayerAfterYvalue(SDL_Renderer* ren, SDL_Rect& camera , int layer, int y);
     float GetLevelWidth();
+    int GetTileWidth();
+    int GetLevelColumCnt();//Width
+    int GetLevelRowCnt();//Height
     float GetLevelHight();
-    std::vector<tile>* GetTilesByLayer(int layer);
+    std::vector<tile> GetTilesByLayer(int layer);
     std::vector<SDL_Rect>* GetCollisionLayer();
 private:
     std::string name;

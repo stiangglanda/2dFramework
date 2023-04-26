@@ -7,6 +7,7 @@
 
 #include "RenderInterface_SDL.h"
 #include "SystemInterface_SDL.h"
+#include "pathfinding.h"
 
 
 
@@ -22,8 +23,9 @@ private:
 	void ProcessEvents();
 	void CheckCollisions();
 	bool m_bGameRun;
-	std::unique_ptr<level> tiled_map_level;
+	std::shared_ptr<level> tiled_map_level;
 	std::unique_ptr<Player> player;
+	std::unique_ptr<pathfinding> mPathfinding;
 	LTexture Widget;
 	LTexture Image;
 	SDL_Rect camera = { 0, 0, g_pFramework->GetScreenWidth(), g_pFramework->GetScreenHeight()};

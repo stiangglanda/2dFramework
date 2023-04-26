@@ -72,6 +72,9 @@
     <ClCompile Include="ImageWidget.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="pathfinding.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets.hpp">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="ImageWidget.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="pathfinding.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

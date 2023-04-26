@@ -7,8 +7,8 @@
 #include <algorithm>
 #include "Framework.h"
 
-tile::tile(std::vector<frame> animatedtiles, SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h, bool animated)
-: mAnimatedtiles(animatedtiles), sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h), mAnimated(animated) {
+tile::tile(std::vector<frame> animatedtiles, SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h, bool animated, bool Obstacle)
+: mAnimatedtiles(animatedtiles), sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h), mAnimated(animated), mObstacle(Obstacle) {
 
 }
 
@@ -146,6 +146,7 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
     // We start at the bottom most layer, and work our way up with this
     // outer for-loop.
     auto& map_layers = tiled_map.getLayers();
+
     for (auto& layer : map_layers) {
         // We're only looking to render the tiles on the map, so if
         // this layer isn't a tile layer, we'll move on.
@@ -176,6 +177,7 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
                 // If the GID is 0, that means it's an empty tile,
                 // we don't want to waste time on nothing, nor do we
                 // want to store an empty tile.
+
                 if (cur_gid == 0) {
                     continue;
                 }
@@ -211,6 +213,12 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
                 // Calculate the area on the tilesheet to draw from.
                 auto region_x = (cur_gid % (ts_width / tile_width)) * tile_width;
                 auto region_y = (cur_gid / (ts_width / tile_width)) * tile_height;
+                
+                bool Obstacle = false;
+                if (region_x == 400 && region_y == 128)
+                {
+                    Obstacle = true;
+                }
 
                 std::vector<frame> animatedtiles;
                 auto anim = animations.find(cur_gid);
@@ -229,7 +237,7 @@ void level::load(const std::string& path, SDL_Renderer* ren) {
 
                 // Phew, all done. 
                 tile t(animatedtiles, tilesets[tset_gid], x_pos, y_pos,
-                    region_x, region_y, tile_width, tile_height, animated);
+                    region_x, region_y, tile_width, tile_height, animated, Obstacle);
                 tilesforDimention.push_back(t);
 
             
@@ -292,14 +300,29 @@ float level::GetLevelWidth()
     return tile_width * cols;
 }
 
+int level::GetTileWidth()
+{
+    return tile_width;
+}
+
+int level::GetLevelColumCnt()
+{
+    return cols;
+}
+
+int level::GetLevelRowCnt()
+{
+    return rows;
+}
+
 float level::GetLevelHight()
 {
     return tile_height * rows;
 }
 
-std::vector<tile>* level::GetTilesByLayer(int layer)
+std::vector<tile> level::GetTilesByLayer(int layer)
 {
-    return &tilesbyLayer[layer];
+    return tilesbyLayer[layer];
 }
 
 std::vector<SDL_Rect>* level::GetCollisionLayer()

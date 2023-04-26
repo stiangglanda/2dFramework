@@ -8,7 +8,7 @@ struct ApplicationData {
 
 game::game()
 {
-	tiled_map_level = std::make_unique<level>("name");
+	tiled_map_level = std::make_shared<level>("name");
 	player = std::make_unique<Player>();
 
 	render_interface = std::make_unique<RenderInterface_SDL>(g_pFramework->GetRenderer());
@@ -24,8 +24,9 @@ static void buttonOnClick()
 
 void game::Init()
 {
-	tiled_map_level.get()->load("island.tmx", g_pFramework->GetRenderer());
-	player.get()->Init();
+	tiled_map_level->load("island.tmx", g_pFramework->GetRenderer());
+	mPathfinding = std::make_unique<pathfinding>(tiled_map_level);
+	player->Init();
 
 	Image.loadFromFile("button.png");
 
@@ -89,7 +90,6 @@ void game::Init()
 
 void game::Quit()
 {
-	tiled_map_level.release();
 	Widget.free();
 	player.release();
 	Rml::Shutdown();
@@ -122,6 +122,7 @@ void game::Run()
 		tiled_map_level.get()->drawLayer(g_pFramework->GetRenderer(), camera,1);
 		player.get()->Draw(camera);
 		tiled_map_level.get()->drawLayer(g_pFramework->GetRenderer(), camera, 2);
+		//tiled_map_level.get()->drawLayer(g_pFramework->GetRenderer(), camera, 3);
 
 		
 		for (int i =0;i< tiled_map_level.get()->GetCollisionLayer()->size();i++)
@@ -133,6 +134,8 @@ void game::Run()
 		//draw UI
 		//Widget.render((g_pFramework->GetScreenWidth() - Widget.getWidth()) / 2, (g_pFramework->GetScreenHeight() - Widget.getHeight()) / 2);
 		gui.Render();
+
+		mPathfinding->debugDraw(g_pFramework->GetRenderer(), camera);
 		//context->Update();
 
 		// Render the user interface. All geometry and other rendering commands are now

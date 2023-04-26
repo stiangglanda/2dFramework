@@ -31,6 +31,7 @@
     <ClCompile Include="level.cpp" />
     <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pathfinding.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProgressWidget.cpp" />
     <ClCompile Include="RenderInterface_SDL.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="ImageWidget.h" />
     <ClInclude Include="LabelWidget.h" />
     <ClInclude Include="LTexture.h" />
+    <ClInclude Include="pathfinding.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProgressWidget.h" />
     <ClInclude Include="RenderInterface_SDL.h" />
