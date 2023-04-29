@@ -20,6 +20,8 @@ class pathfinding
 public:
 	pathfinding(std::shared_ptr<level> map);
 	void debugDraw(SDL_Renderer* ren, SDL_Rect& camera);
+	bool Solve_AStar();
+	void SetEnd(int x, int y) { nodeEnd=&nodes[y * nMapWidth + x]; };
 private:
 	sNode* nodes = nullptr;
 	int nMapWidth = 0;

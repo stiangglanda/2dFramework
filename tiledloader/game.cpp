@@ -135,6 +135,9 @@ void game::Run()
 		//Widget.render((g_pFramework->GetScreenWidth() - Widget.getWidth()) / 2, (g_pFramework->GetScreenHeight() - Widget.getHeight()) / 2);
 		gui.Render();
 
+		mPathfinding->SetEnd(player->GetX()/ tiled_map_level->GetTileWidth(), player->GetY()/tiled_map_level->GetTileWidth());
+		mPathfinding->Solve_AStar();
+
 		mPathfinding->debugDraw(g_pFramework->GetRenderer(), camera);
 		//context->Update();
 
