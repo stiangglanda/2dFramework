@@ -59,7 +59,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f9299a9f-08e2-474e-a3df-133c0167194f}</ProjectGuid>
+    <ProjectGuid>{C79F2E6C-4E07-4976-A304-4C8C5C27FBE9}</ProjectGuid>
     <RootNamespace>tiledloader</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>2dFramework</ProjectName>
