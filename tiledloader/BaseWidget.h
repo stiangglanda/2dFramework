@@ -20,10 +20,10 @@ public:
 	virtual void handleEvent(SDL_Event* e);
 	virtual void Render();
 	WidgetTyp GetTyp();
+
 protected:
 	std::string name;
 	SDL_Rect rect;
 	WidgetTyp typ;
 	bool render;
 };
-

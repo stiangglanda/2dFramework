@@ -1,4 +1,5 @@
 #include "Timer.h"
+
 Timer::Timer()
 {
 	m_fCurTime = 0.0f;

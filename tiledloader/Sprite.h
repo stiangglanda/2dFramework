@@ -8,8 +8,8 @@ public:
 	Sprite();
 	~Sprite();
 
-	void Load(const std::string sFilname);
-	void Load(const std::string sFilname, int NumFrames, int FrameWidth, int FrameHeight);
+	void Load(std::string sFilname);
+	void Load(std::string sFilname, int NumFrames, int FrameWidth, int FrameHeight);
 	void SetPos(float fXPos, float fYPos);
 	void Render();
 	void ProcessMoving();
@@ -18,6 +18,7 @@ public:
 	SDL_Rect GetRect() { return m_Rect; }
 	float xcount;
 	float ycount;
+
 private:
 	SDL_Renderer* m_pRenderer;
 	SDL_Texture* m_pImage;
@@ -28,4 +29,3 @@ private:
 	int m_FrameHeight;
 	int m_NumFramesX;
 };
-

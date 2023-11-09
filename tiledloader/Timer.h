@@ -4,12 +4,14 @@
 #include "TSingleton.h"
 
 #define g_pTimer Timer::Get();
-class Timer :public TSingleton<Timer>
+
+class Timer : public TSingleton<Timer>
 {
 public:
 	Timer();
-	void  Update();
+	void Update();
 	float GetElapsed() { return m_fElapsed; }
+
 private:
 	float m_fElapsed;
 	float m_fCurTime;

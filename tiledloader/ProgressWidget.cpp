@@ -36,12 +36,10 @@ void ProgressWidget::Update(float dt)
 
 void ProgressWidget::Render()
 {
-
 	SDL_SetRenderDrawColor(g_pFramework->GetRenderer(), color.r, color.g, color.b, 0xFF);
-	SDL_Rect ProgressRect=rect;
-	ProgressRect.w=((float)rect.w / 100) * (progress*100);
+	SDL_Rect ProgressRect = rect;
+	ProgressRect.w = (static_cast<float>(rect.w) / 100) * (progress * 100);
 	SDL_RenderFillRect(g_pFramework->GetRenderer(), &ProgressRect);
-
 
 
 	SDL_SetRenderDrawColor(g_pFramework->GetRenderer(), 0x00, 0x00, 0x00, 0xFF);

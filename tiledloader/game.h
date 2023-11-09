@@ -3,15 +3,12 @@
 #include "Player.h"
 #include "BaseWidget.h"
 #include "GUISystem.h"
-#include <RmlUi/Core.h>
 
-#include "RenderInterface_SDL.h"
-#include "SystemInterface_SDL.h"
 #include "pathfinding.h"
 
 
-
-class game {
+class game
+{
 public:
 	game();
 
@@ -28,10 +25,6 @@ private:
 	std::unique_ptr<pathfinding> mPathfinding;
 	LTexture Widget;
 	LTexture Image;
-	SDL_Rect camera = { 0, 0, g_pFramework->GetScreenWidth(), g_pFramework->GetScreenHeight()};
-	std::unique_ptr<RenderInterface_SDL> render_interface;
-	std::unique_ptr<SystemInterface_SDL> system_interface;
-	Rml::Context* context;
+	SDL_Rect camera = {0, 0, g_pFramework->GetScreenWidth(), g_pFramework->GetScreenHeight()};
 	GUISystem gui;
 };
-

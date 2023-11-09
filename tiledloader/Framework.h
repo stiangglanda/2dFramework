@@ -10,7 +10,7 @@ using namespace std;
 
 #define g_pFramework Framework::Get()
 
-class Framework :public TSingleton<Framework>
+class Framework : public TSingleton<Framework>
 {
 public:
 	Framework();
@@ -37,4 +37,3 @@ private:
 	SDL_Renderer* m_pRenderer;
 	TTF_Font* gFont = nullptr;
 };
-

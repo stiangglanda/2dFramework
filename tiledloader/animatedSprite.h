@@ -11,11 +11,11 @@ public:
 	void render(int x, int y);
 	void renderSpecificFrame(int x, int y, int frame);
 	LTexture* GetTexture();
+
 private:
 	LTexture mTexture;
 	int mAnimationFrames;
-	float mFrame;//float?
+	float mFrame;
 	float mDuration;
 	std::vector<SDL_Rect> mSpriteClips;
 };
-

@@ -22,7 +22,8 @@ void ButtonWidget::SetLabel(std::string Label)
 	}
 }
 
-void ButtonWidget::Init(std::string Name, SDL_Rect Rect, std::string Label, SDL_Color Color, std::function<void()> OnClick)
+void ButtonWidget::Init(std::string Name, SDL_Rect Rect, std::string Label, SDL_Color Color,
+                        std::function<void()> OnClick)
 {
 	name = Name;
 	rect = Rect;
@@ -64,10 +65,10 @@ void ButtonWidget::Render()
 	default:
 		break;
 	}
-	
+
 	SDL_RenderDrawRect(g_pFramework->GetRenderer(), &rect);
 
-	int TextXCord, TextYCord=0;
+	int TextXCord, TextYCord = 0;
 
 	TextXCord = rect.x + rect.w / 2 - textTexture.getWidth() / 2;
 	TextYCord = rect.y + rect.h / 2 - textTexture.getHeight() / 2;

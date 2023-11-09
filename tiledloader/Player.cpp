@@ -3,41 +3,31 @@
 void Player::Init()
 {
 	playerSpriteMoveForward = std::make_unique<animatedSprite>();
-	playerSpriteMoveForward->Init("harrypotter/link_sprite_sheetMoveForward.png",15,9);
-	//playerSpriteMoveForward->Init("link_sprite_sheetMoveForward.png",15,10);
+	playerSpriteMoveForward->Init("harrypotter/link_sprite_sheetMoveForward.png", 15, 9);
 
 	playerSpriteMoveRight = std::make_unique<animatedSprite>();
 	playerSpriteMoveRight->Init("harrypotter/link_sprite_sheetMoveRight.png", 15, 9);
-	//playerSpriteMoveRight->Init("link_sprite_sheetMoveRight.png", 15, 10);
 
 	playerSpriteMoveBack = std::make_unique<animatedSprite>();
 	playerSpriteMoveBack->Init("harrypotter/link_sprite_sheetMoveBack.png", 15, 9);
-	//playerSpriteMoveBack->Init("link_sprite_sheetMoveBack.png", 15, 10);
 
 	playerSpriteMoveLeft = std::make_unique<animatedSprite>();
 	playerSpriteMoveLeft->Init("harrypotter/link_sprite_sheetMoveLeft.png", 15, 9);
-	//playerSpriteMoveLeft->Init("link_sprite_sheetMoveLeft.png", 15, 10);
 
 	playerSpriteIdleForward = std::make_unique<animatedSprite>();
 	playerSpriteIdleForward->Init("harrypotter/link_sprite_sheetIdleForward.png", 1, 1);
-	//playerSpriteIdleForward->Init("link_sprite_sheetIdleForward.png", 1, 1);
 
 	playerSpriteIdleRight = std::make_unique<animatedSprite>();
 	playerSpriteIdleRight->Init("harrypotter/link_sprite_sheetIdleRight.png", 1, 1);
-	//playerSpriteIdleRight->Init("link_sprite_sheetIdleRight.png", 4, 3);
 
 	playerSpriteIdleBack = std::make_unique<animatedSprite>();
 	playerSpriteIdleBack->Init("harrypotter/link_sprite_sheetIdleBack.png", 1, 1);
-	//playerSpriteIdleBack->Init("link_sprite_sheetIdleBack.png", 4, 3);
 
 	playerSpriteIdleLeft = std::make_unique<animatedSprite>();
 	playerSpriteIdleLeft->Init("harrypotter/link_sprite_sheetIdleLeft.png", 1, 1);
-	//playerSpriteIdleLeft->Init("link_sprite_sheetIdleLeft.png", 4, 3);
 
 	mBox.x = 0;
 	mBox.y = 0;
-	//mBox.w = 100;
-	//mBox.h = 100;
 	mBox.w = 23;
 	mBox.h = 44;
 	mVelX = 0;
@@ -47,18 +37,18 @@ void Player::Init()
 void Player::Update(const std::vector<SDL_Rect>* collisionLayer)
 {
 	ActivityInFrame = false;
-	SDL_Rect oldCoord= mBox;
+	SDL_Rect oldCoord = mBox;
 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_W))
 	{
-		y = y- 300.0f * Timer::Get()->GetElapsed();
+		y = y - 300.0f * Timer::Get()->GetElapsed();
 		mBox.y = y;
 		AnimMode = AnimationMode::MoveForward;
 		ActivityInFrame = true;
 	}
 	if (g_pFramework->KeyDown(SDL_SCANCODE_S))
 	{
-		y = y+300.0f * Timer::Get()->GetElapsed();
+		y = y + 300.0f * Timer::Get()->GetElapsed();
 		mBox.y = y;
 		AnimMode = AnimationMode::MoveBack;
 		ActivityInFrame = true;
@@ -72,7 +62,7 @@ void Player::Update(const std::vector<SDL_Rect>* collisionLayer)
 	}
 	if (g_pFramework->KeyDown(SDL_SCANCODE_D))
 	{
-		x = x+ 300.0f * Timer::Get()->GetElapsed();
+		x = x + 300.0f * Timer::Get()->GetElapsed();
 		mBox.x = x;
 		AnimMode = AnimationMode::MoveRight;
 		ActivityInFrame = true;
@@ -103,9 +93,6 @@ SDL_Rect Player::GetAABB()
 
 void Player::Draw(SDL_Rect& camera)
 {
-	/*playerSprite.get()->xcount =- camera.x;
-	playerSprite.get()->ycount =- camera.y;*/
-
 	if (!ActivityInFrame)
 	{
 		switch (AnimMode)
@@ -162,10 +149,9 @@ void Player::Draw(SDL_Rect& camera)
 
 void Player::Quit()
 {
-
 }
 
-void Player::setCamera(SDL_Rect& camera, float levelWidth,float levelHight)
+void Player::setCamera(SDL_Rect& camera, float levelWidth, float levelHight)
 {
 	//Center the camera over the dot
 	camera.x = (mBox.x + DOT_WIDTH / 2) - g_pFramework->GetScreenWidth() / 2;
@@ -180,7 +166,7 @@ void Player::setCamera(SDL_Rect& camera, float levelWidth,float levelHight)
 	{
 		camera.y = 0;
 	}
-	if (camera.x > levelWidth - camera.w)//TODO 900 and 700 is level size
+	if (camera.x > levelWidth - camera.w) //TODO 900 and 700 is level size
 	{
 		camera.x = levelWidth - camera.w;
 	}

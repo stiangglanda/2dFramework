@@ -34,9 +34,7 @@
     <ClCompile Include="pathfinding.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProgressWidget.cpp" />
-    <ClCompile Include="RenderInterface_SDL.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SystemInterface_SDL.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -53,8 +51,6 @@
     <ClInclude Include="pathfinding.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProgressWidget.h" />
-    <ClInclude Include="RenderInterface_SDL.h" />
-    <ClInclude Include="SystemInterface_SDL.h" />
     <ClInclude Include="TSingleton.h" />
     <ClInclude Include="level.hpp" />
     <ClInclude Include="Sprite.h" />

@@ -9,19 +9,18 @@ pathfinding::pathfinding(std::shared_ptr<level> map)
 	nMapHeight = map->GetLevelRowCnt();
 	tileSize = map->GetTileWidth();
 
-	auto navTiles= map->GetTilesByLayer(3);
-	
-// Create a 2D array of nodes - this is for convenience of rendering and construction
-// and is not required for the algorithm to work - the nodes could be placed anywhere
-// in any space, in multiple dimensions...
+	auto navTiles = map->GetTilesByLayer(3);
+
+	// Create a 2D array of nodes - this is for convenience of rendering and construction
+	// and is not required for the algorithm to work - the nodes could be placed anywhere
+	// in any space, in multiple dimensions...
 	nodes = new sNode[nMapWidth * nMapHeight];
 	for (int x = 0; x < nMapWidth; x++)
 		for (int y = 0; y < nMapHeight; y++)
 		{
-
 			nodes[y * nMapWidth + x].x = x; // ...because we give each node its own coordinates
 			nodes[y * nMapWidth + x].y = y;
-			nodes[y * nMapWidth + x].bObstacle = navTiles[y * nMapWidth + x].mObstacle;//x + (y * cols)
+			nodes[y * nMapWidth + x].bObstacle = navTiles[y * nMapWidth + x].mObstacle; //x + (y * cols)
 			nodes[y * nMapWidth + x].parent = nullptr;
 			nodes[y * nMapWidth + x].bVisited = false;
 		}
@@ -40,19 +39,18 @@ pathfinding::pathfinding(std::shared_ptr<level> map)
 				nodes[y * nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 0) * nMapWidth + (x + 1)]);
 
 			// We can also connect diagonally
-			if (y>0 && x>0)
-				nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y - 1) * nMapWidth + (x - 1)]);
-			if (y<nMapHeight-1 && x>0)
-				nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 1) * nMapWidth + (x - 1)]);
-			if (y>0 && x<nMapWidth-1)
-				nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y - 1) * nMapWidth + (x + 1)]);
-			if (y<nMapHeight - 1 && x<nMapWidth-1)
-				nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 1) * nMapWidth + (x + 1)]);
-			
+			if (y > 0 && x > 0)
+				nodes[y * nMapWidth + x].vecNeighbours.push_back(&nodes[(y - 1) * nMapWidth + (x - 1)]);
+			if (y < nMapHeight - 1 && x > 0)
+				nodes[y * nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 1) * nMapWidth + (x - 1)]);
+			if (y > 0 && x < nMapWidth - 1)
+				nodes[y * nMapWidth + x].vecNeighbours.push_back(&nodes[(y - 1) * nMapWidth + (x + 1)]);
+			if (y < nMapHeight - 1 && x < nMapWidth - 1)
+				nodes[y * nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 1) * nMapWidth + (x + 1)]);
 		}
 
 	// Manually positio the start and end markers so they are not nullptr
-	nodeStart = &nodes[(nMapHeight / 2) * nMapWidth + (nMapWidth/3)+1];
+	nodeStart = &nodes[(nMapHeight / 2) * nMapWidth + (nMapWidth / 3) + 1];
 	nodeEnd = &nodes[(nMapHeight / 2) * nMapWidth + nMapWidth - 2];
 }
 
@@ -69,7 +67,10 @@ void pathfinding::debugDraw(SDL_Renderer* ren, SDL_Rect& camera)
 			for (auto n : nodes[y * nMapWidth + x].vecNeighbours)
 			{
 				SDL_SetRenderDrawColor(ren, 0x00, 0x00, 0xFF, 0xFF);
-				SDL_RenderDrawLine(ren, (x * nNodeSize + nNodeSize / 2) - camera.x, (y * nNodeSize + nNodeSize / 2) - camera.y, (n->x * nNodeSize + nNodeSize / 2) - camera.x, (n->y * nNodeSize + nNodeSize / 2) - camera.y);
+				SDL_RenderDrawLine(ren, (x * nNodeSize + nNodeSize / 2) - camera.x,
+				                   (y * nNodeSize + nNodeSize / 2) - camera.y,
+				                   (n->x * nNodeSize + nNodeSize / 2) - camera.x,
+				                   (n->y * nNodeSize + nNodeSize / 2) - camera.y);
 			}
 		}
 
@@ -77,7 +78,10 @@ void pathfinding::debugDraw(SDL_Renderer* ren, SDL_Rect& camera)
 	for (int x = 0; x < nMapWidth; x++)
 		for (int y = 0; y < nMapHeight; y++)
 		{
-			SDL_Rect fillRect = { (x * nNodeSize + nNodeBorder) - camera.x, (y * nNodeSize + nNodeBorder) - camera.y, nNodeSize- nNodeBorder, nNodeSize- nNodeBorder };
+			SDL_Rect fillRect = {
+				(x * nNodeSize + nNodeBorder) - camera.x, (y * nNodeSize + nNodeBorder) - camera.y,
+				nNodeSize - nNodeBorder, nNodeSize - nNodeBorder
+			};
 
 			SDL_SetRenderDrawColor(ren, 0x00, 0xFF, 0x00, 0xFF);
 			if (&nodes[y * nMapWidth + x] == nodeStart)
@@ -95,7 +99,7 @@ void pathfinding::debugDraw(SDL_Renderer* ren, SDL_Rect& camera)
 			else if (nodes[y * nMapWidth + x].bObstacle)
 			{
 				SDL_SetRenderDrawColor(ren, 0xFF, 0x00, 0x00, 0xFF);
-			} 
+			}
 			SDL_RenderFillRect(ren, &fillRect);
 		}
 
@@ -108,7 +112,10 @@ void pathfinding::debugDraw(SDL_Renderer* ren, SDL_Rect& camera)
 		while (p->parent != nullptr)
 		{
 			SDL_SetRenderDrawColor(ren, 0xE1, 0xE1, 0x00, 0xFF);
-			SDL_RenderDrawLine(ren, (p->x * nNodeSize + nNodeSize / 2) - camera.x, (p->y * nNodeSize + nNodeSize / 2) - camera.y, (p->parent->x * nNodeSize + nNodeSize / 2) - camera.x, (p->parent->y * nNodeSize + nNodeSize / 2) - camera.y);
+			SDL_RenderDrawLine(ren, (p->x * nNodeSize + nNodeSize / 2) - camera.x,
+			                   (p->y * nNodeSize + nNodeSize / 2) - camera.y,
+			                   (p->parent->x * nNodeSize + nNodeSize / 2) - camera.x,
+			                   (p->parent->y * nNodeSize + nNodeSize / 2) - camera.y);
 			// Set next node to this node's parent
 			p = p->parent;
 		}
@@ -124,7 +131,7 @@ bool pathfinding::Solve_AStar()
 			nodes[y * nMapWidth + x].bVisited = false;
 			nodes[y * nMapWidth + x].fGlobalGoal = INFINITY;
 			nodes[y * nMapWidth + x].fLocalGoal = INFINITY;
-			nodes[y * nMapWidth + x].parent = nullptr;	// No parents
+			nodes[y * nMapWidth + x].parent = nullptr; // No parents
 		}
 
 	auto distance = [](sNode* a, sNode* b) // For convenience
@@ -152,7 +159,8 @@ bool pathfinding::Solve_AStar()
 	// which have not yet been explored. However, we will also stop 
 	// searching when we reach the target - there may well be better
 	// paths but this one will do - it wont be the longest.
-	while (!listNotTestedNodes.empty() && nodeCurrent != nodeEnd && !nodeEnd->bObstacle)// Find absolutely shortest path // && nodeCurrent != nodeEnd)
+	while (!listNotTestedNodes.empty() && nodeCurrent != nodeEnd && !nodeEnd->bObstacle)
+	// Find absolutely shortest path // && nodeCurrent != nodeEnd)
 	{
 		// Sort Untested nodes by global goal, so lowest is first
 		listNotTestedNodes.sort([](const sNode* lhs, const sNode* rhs) { return lhs->fGlobalGoal < rhs->fGlobalGoal; });

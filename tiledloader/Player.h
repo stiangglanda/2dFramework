@@ -3,7 +3,8 @@
 #include "LTexture.h"
 #include "animatedSprite.h"
 
-enum class AnimationMode{
+enum class AnimationMode
+{
 	MoveForward,
 	MoveRight,
 	MoveBack,
@@ -25,6 +26,7 @@ public:
 	SDL_Rect GetAABB();
 	void Quit();
 	void setCamera(SDL_Rect& camera, float levelWidth, float levelHight);
+
 private:
 	std::unique_ptr<animatedSprite> playerSpriteMoveForward;
 	std::unique_ptr<animatedSprite> playerSpriteMoveRight;
@@ -36,19 +38,18 @@ private:
 	std::unique_ptr<animatedSprite> playerSpriteIdleLeft;
 
 	AnimationMode AnimMode = AnimationMode::IdleBack;
-	bool ActivityInFrame=false;
+	bool ActivityInFrame = false;
 	//Collision box of the dot
 	SDL_Rect mBox;
 	//The velocity of the dot
 	int mVelX, mVelY;
 
-	float x=0;
-	float y=0;
+	float x = 0;
+	float y = 0;
 
-	static const int DOT_WIDTH = 20;
-	static const int DOT_HEIGHT = 20;
+	static constexpr int DOT_WIDTH = 20;
+	static constexpr int DOT_HEIGHT = 20;
 
 	//Maximum axis velocity of the dot
-	static const int DOT_VEL = 10;
+	static constexpr int DOT_VEL = 10;
 };
-

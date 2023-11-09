@@ -1,21 +1,21 @@
 #include "Framework.h"
 #include "game.h"
 
-int main(int argc, char* argv[]) {
-    if (g_pFramework->Init(800, 600, 16, false) == false)
-        return (0);
+int main(int argc, char* argv[])
+{
+	if (g_pFramework->Init(800, 600, 16, false) == false)
+		return (0);
 
-    game Game;
+	game Game;
 
-    Game.Init();
+	Game.Init();
 
-    Game.Run();
+	Game.Run();
 
-    Game.Quit();
+	Game.Quit();
 
-    g_pFramework->Quit();
-    g_pFramework->Del();
+	g_pFramework->Quit();
+	g_pFramework->Del();
 
-    return (0);
-
+	return (0);
 }

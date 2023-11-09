@@ -16,7 +16,7 @@ Sprite::~Sprite()
 void Sprite::Load(const std::string sFilename)
 {
 	SDL_Surface* pTemp = SDL_LoadBMP(sFilename.c_str());
-	if (pTemp == NULL)
+	if (pTemp == nullptr)
 	{
 		std::cout << "Fehler beim Laden von: " << sFilename.c_str();
 		std::cout << std::endl;
@@ -51,13 +51,13 @@ void Sprite::Load(const std::string sFilename, int NumFrames, int FrameWidth, in
 
 void Sprite::SetPos(float fXPos, float fYPos)
 {
-	m_Rect.x = static_cast<int> (fXPos);
-	m_Rect.y = static_cast<int> (fYPos);
+	m_Rect.x = static_cast<int>(fXPos);
+	m_Rect.y = static_cast<int>(fYPos);
 }
 
 void Sprite::Render()
 {
-	SDL_RenderCopy(m_pRenderer, m_pImage, NULL, &m_Rect);
+	SDL_RenderCopy(m_pRenderer, m_pImage, nullptr, &m_Rect);
 }
 
 void Sprite::Render(float fFrameNumber)

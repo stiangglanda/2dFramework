@@ -3,8 +3,8 @@
 
 Framework::Framework()
 {
-	m_pWindow = NULL;
-	m_pRenderer = NULL;
+	m_pWindow = nullptr;
+	m_pRenderer = nullptr;
 }
 
 bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFullscreen)
@@ -29,9 +29,10 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFu
 		WindowFlags = SDL_WINDOW_SHOWN;
 	}
 
-	m_pWindow = SDL_CreateWindow("nudyDOG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScreenWidth, ScreenHeight, WindowFlags);
+	m_pWindow = SDL_CreateWindow("nudyDOG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScreenWidth, ScreenHeight,
+	                             WindowFlags);
 
-	if (m_pWindow == NULL)
+	if (m_pWindow == nullptr)
 	{
 		cout << "SDL-Window could not be Created!" << endl;
 		cout << "Error: " << SDL_GetError() << endl;
@@ -41,7 +42,7 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFu
 	}
 
 	m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-	if (m_pRenderer == NULL)
+	if (m_pRenderer == nullptr)
 	{
 		cout << "SDL-Renderer could not be Created!" << endl;
 		cout << "Error: " << SDL_GetError() << endl;
@@ -49,23 +50,20 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFu
 		Quit();
 		return false;
 	}
-	else
+	//Initialize renderer color
+	SDL_SetRenderDrawColor(m_pRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+	//Initialize PNG loading
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
-		//Initialize renderer color
-		SDL_SetRenderDrawColor(m_pRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+	}
 
-		//Initialize PNG loading
-		int imgFlags = IMG_INIT_PNG;
-		if (!(IMG_Init(imgFlags) & imgFlags))
-		{
-			printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-		}
-
-		//Initialize SDL_ttf
-		if (TTF_Init() == -1)
-		{
-			printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
-		}
+	//Initialize SDL_ttf
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
 	//Open the font
@@ -78,7 +76,7 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight, int ColorDepth, bool bFu
 	mWidth = ScreenWidth;
 	mHight = ScreenHeight;
 
-	m_pKeystate = SDL_GetKeyboardState(NULL);
+	m_pKeystate = SDL_GetKeyboardState(nullptr);
 
 	return true;
 }
@@ -89,12 +87,12 @@ void Framework::Quit()
 	TTF_CloseFont(gFont);
 	gFont = nullptr;
 
-	if (m_pRenderer != NULL)
+	if (m_pRenderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_pRenderer);
 	}
 
-	if (m_pWindow != NULL)
+	if (m_pWindow != nullptr)
 	{
 		SDL_DestroyWindow(m_pWindow);
 	}
@@ -163,7 +161,7 @@ bool Framework::touchesWall(SDL_Rect box, const std::vector<SDL_Rect>* collision
 	//Go through the tiles
 	for (int i = 0; i < collisionLayer->size(); ++i)
 	{
-			//If the collision box touches the wall tile
+		//If the collision box touches the wall tile
 		if (checkCollision(box, collisionLayer->at(i)))
 		{
 			return true;
@@ -176,7 +174,7 @@ bool Framework::touchesWall(SDL_Rect box, const std::vector<SDL_Rect>* collision
 
 void Framework::Update()
 {
-	Timer::Get()->Update();//TODO maybe!!!!!!!!!!!!!! //g_pTimer->Update();
+	Timer::Get()->Update();
 
 	SDL_PumpEvents();
 }
